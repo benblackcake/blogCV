@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% block content %}
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Post - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" >
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/blog-home.css' %}" >
+    <link rel="stylesheet" href="{% static 'summ/summernote-bs4.css' %}" >
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/blog/post">Ben World's</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/blog/post">Home
+                <span class="sr-only">(current)</span>
+              </a>
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#              <a class="nav-link" href="#">About</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#              <a class="nav-link" href="#">Services</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#              <a class="nav-link" href="#">Contact</a>#}
+{#            </li>#}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% if datas %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8 ft">
+
+          <!-- Title -->
+          <h1 class="mt-4"  >{{ datas.post_title }}</h1>
+
+          <!-- Author -->
+{#          <p class="lead">#}
+{#            by#}
+{#            <a href="#">Start Bootstrap</a>#}
+{#          </p>#}
+
+          <hr>
+
+          <!-- Date/Time -->
+          <p>Publish Date: {{ datas.post_date }}</p>
+
+          <hr>
+
+          <!-- Preview Image -->
+          <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+
+          <hr>
+
+          <!-- Post Content -->
+{#          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>#}
+
+{#          <p>{{ datas.post_context |linebreaks}}</p>#}
+          <p >{{ datas.post_context|safe|escape}}</p>
+
+
+
+          <hr>
+
+          <!-- Comments Form -->
+          <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form id="formComment">{% csrf_token %}
+                <div class="form-group">
+                    <input id="postid" name="post" class="form-control" value="{{datas.id }}" hidden="true"/>
+                </div>
+                  <div class="form-group">
+                      <label for="beacon_id"><span class="glyphicon glyphicon-pencil"></span>Your Name</label>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="username"
+                             required="true">
+                  </div>
+                <div class="form-group">
+                  <textarea id="summernote" name="context" class="form-control" required="true" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Comment</button>
+              </form>
+            </div>
+          </div>
+{##}
+          <!-- Single Comment -->
+          {% if comments %}
+              {% for comment in comments %}
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body" style="font-family: fontpri,serif">
+                        <h5 class="mt-0" style="font-family: fontpri,serif">{{ comment.username }}</h5>
+                        {{ comment.context |safe|escape}}
+                    </div>
+                    <div class="text-md-right">
+                        <span style="font-family: fontpri,serif">{{ comment.comment_date }}</span>
+                    </div>
+                </div>
+              {% endfor %}
+
+          {% endif %}
+
+{##}
+{#          <!-- Comment with nested comments -->#}
+{#          <div class="media mb-4">#}
+{#            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+{#            <div class="media-body">#}
+{#              <h5 class="mt-0">Commenter Name</h5>#}
+{#              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.#}
+{##}
+{#              <div class="media mt-4">#}
+{#                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+{#                <div class="media-body">#}
+{#                  <h5 class="mt-0">Commenter Name</h5>#}
+{#                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.#}
+{#                </div>#}
+{#              </div>#}
+{##}
+{#              <div class="media mt-4">#}
+{#                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">#}
+{#                <div class="media-body">#}
+{#                  <h5 class="mt-0">Commenter Name</h5>#}
+{#                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.#}
+{#                </div>#}
+{#              </div>#}
+{##}
+{#            </div>#}
+{#          </div>#}
+
+        </div>
+
+{#        <!-- Sidebar Widgets Column -->#}
+{#        <div class="col-md-4">#}
+{##}
+{#          <!-- Search Widget -->#}
+{#          <div class="card my-4">#}
+{#            <h5 class="card-header">Search</h5>#}
+{#            <div class="card-body">#}
+{#              <div class="input-group">#}
+{#                <input type="text" class="form-control" placeholder="Search for...">#}
+{#                <span class="input-group-btn">#}
+{#                  <button class="btn btn-secondary" type="button">Go!</button>#}
+{#                </span>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+
+
+
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    {% endif %}
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; BenChang Website 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>#}
+    <script src="{% static 'summ/summernote-bs4.js' %}"></script>
+    <script src="{% static 'post.js' %}"></script>
+  </body>
+
+</html>
+{% endblock %}
