@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'blogCV.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'blogCV',
+        'USER': 'mysqldbuser@benchang-mysqldbserver',
+        'PASSWORD': 'andrewchangcn_An$drew88',
+        'HOST': 'benchang-mysqldbserver.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET foreign_key_checks = 0;"
